@@ -1,0 +1,22 @@
+.add-book {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border: 5px;
+}
+#add-book-button {
+    background-color: green;
+    height: 75px;
+    width: 125px;
+    font-size: 24px;
+}
+
+.book-data {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 50px;
+}
+
+td, th {
+    border: 1px solid black;
+}
