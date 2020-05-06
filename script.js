@@ -28,24 +28,32 @@ function render() {
     }
 }
 
-function addBookToLibrary(book) {
-    myLibrary.push(book);
+function getData() {
+    let bookData = document.createElement("form");
+
 }
 
+function addBookToLibrary() {
+    // myLibrary.push(book);
+    // getData();
+    // console.log("hello");
+
+    // myLibrary.push(new Book(title, author, pages, readStatus);
+    //render should be in here! right after you get the data,
+    // append it to the table and the array
+}
+
+let addBookButton = document.querySelector("#add-book-button");
+addBookButton.addEventListener("click", addBookToLibrary);
 
 //manually add books first
-let book1 = new Book("The Shining", "Stephen King", "650", true);
-let book2 = new Book("Les Miserables", "Victor Hugo", "500", false);
-let book3 = new Book("Hunger Games", "Suzanne Collins", "450", true);
-addBookToLibrary(book1);
-addBookToLibrary(book2);
-addBookToLibrary(book3);
-render();
-// let bookData = document.querySelector(".book-data");
-// let tr = document.createElement("tr")
-// let td1 = document.createElement("td");
-// td1.textContent = "hello";
-// tr.appendChild(td1)
-// bookData.appendChild(tr);
+// let book1 = new Book("The Shining", "Stephen King", "650", true);
+// let book2 = new Book("Les Miserables", "Victor Hugo", "500", false);
+// let book3 = new Book("Hunger Games", "Suzanne Collins", "450", true);
+// addBookToLibrary(book1);
+// addBookToLibrary(book2);
+// addBookToLibrary(book3);
+// render();
+
 
 

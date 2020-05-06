@@ -8,7 +8,17 @@
 </head>
 <body>
     <div class="add-book">
-        <button id="add-book-button">Add New Book</button>
+        <!-- add a form here -->
+        <form action="">
+            <input type="text" placeholder="Title" required>
+            <input type="text" placeholder="Author" required>
+            <input type="text" placeholder="Pages" required>
+            <label for="read-status">
+                <input id="read-status" type="checkbox"> Read
+            </label>
+            <button id="add-book-button" type="submit">Add Book</button>
+        </form>
+        <!-- <button id="add-book-button">Add New Book</button> -->
     </div>
     <table class="book-data">
         <tr>
