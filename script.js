@@ -1,4 +1,8 @@
 let myLibrary = [];
+let addBookButton = document.querySelector("#add-book-button");
+let newBookForm = document.querySelector("#book-data");
+
+addBookButton.addEventListener("click", addBookToLibrary);
 
 function Book(title, author, numPages, read) {
     this.title = title;
@@ -29,22 +33,23 @@ function render() {
 }
 
 function getData() {
-    let bookData = document.createElement("form");
+    let title = document.getElementById("title").value;
+    let author = document.getElementById("author").value;
+    let pages = document.getElementById("pages").value;
+    let read = document.getElementById("read-status").checked;
 
+    console.log(`${title} ${author} ${pages} ${read}`);
 }
 
 function addBookToLibrary() {
-    // myLibrary.push(book);
-    // getData();
-    // console.log("hello");
-
+    getData();
+    newBookForm.reset();
     // myLibrary.push(new Book(title, author, pages, readStatus);
     //render should be in here! right after you get the data,
     // append it to the table and the array
 }
 
-let addBookButton = document.querySelector("#add-book-button");
-addBookButton.addEventListener("click", addBookToLibrary);
+
 
 //manually add books first
 // let book1 = new Book("The Shining", "Stephen King", "650", true);

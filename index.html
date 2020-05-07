@@ -9,16 +9,15 @@
 <body>
     <div class="add-book">
         <!-- add a form here -->
-        <form action="">
-            <input type="text" placeholder="Title" required>
-            <input type="text" placeholder="Author" required>
-            <input type="text" placeholder="Pages" required>
+        <form action="" id="book-data">
+            <input id="title" type="text" placeholder="Title" required>
+            <input id="author" type="text" placeholder="Author" required>
+            <input id="pages" type="number" placeholder="Pages" required>
             <label for="read-status">
                 <input id="read-status" type="checkbox"> Read
             </label>
-            <button id="add-book-button" type="submit">Add Book</button>
+            <button id="add-book-button" type="button">Add Book</button>
         </form>
-        <!-- <button id="add-book-button">Add New Book</button> -->
     </div>
     <table class="book-data">
         <tr>
@@ -26,7 +25,7 @@
             <th>Author</th>
             <th>Pages</th>
             <th>Status</th>
-            <th></th>
+            <th>Remove</th>
         </tr>
         <!-- <tr>
             <td>The Shining</td>
