@@ -2,7 +2,7 @@ let myLibrary = [];
 let addBookButton = document.querySelector("#add-book-button");
 let newBookForm = document.querySelector("#book-data");
 
-addBookButton.addEventListener("click", addBookToLibrary);
+addBookButton.addEventListener("click", addBook);
 
 function Book(title, author, numPages, read) {
     this.title = title;
@@ -11,8 +11,12 @@ function Book(title, author, numPages, read) {
     this.read = read;
 }
 
-function render() {
-    let bookData = document.querySelector(".book-data");
+function removeBook(bookIndex) {
+    myLibrary.splice(bookIndex, 1);
+    render();
+}
+
+function getNewTableRows(tbody) {
     for (let book of myLibrary) {
         let tr = document.createElement("tr");
         for (let value of Object.values(book)) {
@@ -27,26 +31,42 @@ function render() {
         removeButton.textContent = "Remove";
         td.appendChild(removeButton);
         tr.appendChild(td);
-        bookData.appendChild(tr);
+        tbody.appendChild(tr);
         // console.log("------");
     }
 }
 
-function getData() {
+function render() {
+    let bookData = document.querySelector(".book-table");
+    let newTbody = document.createElement("tbody");
+    getNewTableRows(newTbody);
+    if (!document.body.contains(document.getElementsByTagName("tbody")[0])) {
+        bookData.appendChild(newTbody);
+    } else {
+        let oldTbody = document.getElementsByTagName("tbody")[0];
+        bookData.replaceChild(newTbody, oldTbody);
+    }
+    
+}
+
+function createBook() {
     let title = document.getElementById("title").value;
     let author = document.getElementById("author").value;
     let pages = document.getElementById("pages").value;
     let read = document.getElementById("read-status").checked;
 
-    console.log(`${title} ${author} ${pages} ${read}`);
+    return new Book(title, author, pages, read);
 }
 
-function addBookToLibrary() {
-    getData();
+function pushBook(book) {
+    myLibrary.push(book);
+}
+
+function addBook() {
+    let newBook = createBook();
+    pushBook(newBook);
     newBookForm.reset();
-    // myLibrary.push(new Book(title, author, pages, readStatus);
-    //render should be in here! right after you get the data,
-    // append it to the table and the array
+    render()
 }
 
 
