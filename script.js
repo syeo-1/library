@@ -11,9 +11,11 @@ function Book(title, author, numPages, read) {
     this.read = read;
 }
 
-function removeBook(bookIndex) {
-    myLibrary.splice(bookIndex, 1);
+function removeBook() {
+    myLibrary.splice(this.id, 1);
     render();
+    // document.parentElement
+    // console.log(this.id);
 }
 
 function getNewTableRows(tbody) {
@@ -29,9 +31,10 @@ function getNewTableRows(tbody) {
         let td = document.createElement("td");
         let removeButton = document.createElement("button");
         removeButton.textContent = "Remove";
+        removeButton.addEventListener("click", removeBook);
 
         //give row identifier for removal
-        tr.id = (index).toString();
+        removeButton.id = (index).toString();
 
         td.appendChild(removeButton);
         tr.appendChild(td);
