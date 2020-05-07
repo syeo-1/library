@@ -17,7 +17,7 @@ function removeBook(bookIndex) {
 }
 
 function getNewTableRows(tbody) {
-    for (let book of myLibrary) {
+    for (let [index, book] of myLibrary.entries()) {
         let tr = document.createElement("tr");
         for (let value of Object.values(book)) {
             let td = document.createElement("td");
@@ -29,6 +29,10 @@ function getNewTableRows(tbody) {
         let td = document.createElement("td");
         let removeButton = document.createElement("button");
         removeButton.textContent = "Remove";
+
+        //give row identifier for removal
+        tr.id = (index).toString();
+
         td.appendChild(removeButton);
         tr.appendChild(td);
         tbody.appendChild(tr);
