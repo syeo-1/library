@@ -16,17 +16,52 @@ Book.prototype.changeReadStatus = function() {
     this.read = (this.read === "read") ? "unread" : "read" ;
 };
 
+// check for local storage compatibility. taken from:
+// https://developer.mozilla.org/en-US/docs/Web/API/Web_Storage_API/Using_the_Web_Storage_API
+function storageAvailable(type) {
+    var storage;
+    try {
+        storage = window[type];
+        var x = '__storage_test__';
+        storage.setItem(x, x);
+        storage.removeItem(x);
+        return true;
+    }
+    catch(e) {
+        return e instanceof DOMException && (
+            // everything except Firefox
+            e.code === 22 ||
+            // Firefox
+            e.code === 1014 ||
+            // test name field too, because code might not be present
+            // everything except Firefox
+            e.name === 'QuotaExceededError' ||
+            // Firefox
+            e.name === 'NS_ERROR_DOM_QUOTA_REACHED') &&
+            // acknowledge QuotaExceededError only if there's something already stored
+            (storage && storage.length !== 0);
+    }
+}
+
+// if local storage is usable and the library already exists, use it
+if (storageAvailable('localStorage')) {
+    if (localStorage.getItem("myLibrary")) {
+        renderLocalStorage()
+    }
+}
+
 function removeBook() {
     myLibrary.splice(this.id, 1);
+    updateLocalStorage();
     render();
 }
 
-function changeStatus() {
-    console.log("words");
+function updateLocalStorage() {
+    localStorage.setItem("myLibrary", JSON.stringify(myLibrary));
 }
 
-function getNewTableRows(tbody) {
-    for (let [index, book] of myLibrary.entries()) {
+function getNewTableRows(tbody, library) {
+    for (let [index, book] of library.entries()) {
         let tr = document.createElement("tr");
         for (let value of Object.values(book)) {
             let td = document.createElement("td");
@@ -39,6 +74,7 @@ function getNewTableRows(tbody) {
         changeStatusButton.textContent = "Change Read Status";
         changeStatusButton.addEventListener("click", function() {
             myLibrary[index].changeReadStatus();
+            removeFromLocalStorage();
             render();
         });
         tdChangeStatus.appendChild(changeStatusButton);
@@ -62,7 +98,7 @@ function getNewTableRows(tbody) {
 function render() {
     let bookData = document.querySelector(".book-table");
     let newTbody = document.createElement("tbody");
-    getNewTableRows(newTbody);
+    getNewTableRows(newTbody, myLibrary);
     if (!document.body.contains(document.getElementsByTagName("tbody")[0])) {
         bookData.appendChild(newTbody);
     } else {
@@ -70,6 +106,31 @@ function render() {
         bookData.replaceChild(newTbody, oldTbody);
     }
     
+}
+
+function createMyLibrary() {
+    let tempBookData = JSON.parse(localStorage.getItem("myLibrary"));
+    for (book of tempBookData) {
+        let title = book.title;
+        let author = book.author;
+        let pages = book.numPages;
+        let readStatus = book.read;
+
+        myLibrary.push(new Book(title, author, pages, readStatus));
+    }
+}
+
+function renderLocalStorage() {
+    let bookData = document.querySelector(".book-table");
+    let newTbody = document.createElement("tbody");
+    getNewTableRows(newTbody, JSON.parse(localStorage.getItem("myLibrary")));
+    if (!document.body.contains(document.getElementsByTagName("tbody")[0])) {
+        bookData.appendChild(newTbody);
+    } else {
+        let oldTbody = document.getElementsByTagName("tbody")[0];
+        bookData.replaceChild(newTbody, oldTbody);
+    }
+    createMyLibrary();
 }
 
 function createBook() {
@@ -88,6 +149,7 @@ function pushBook(book) {
 function addBook() {
     let newBook = createBook();
     pushBook(newBook);
+    updateLocalStorage();
     newBookForm.reset();
     render()
 }
