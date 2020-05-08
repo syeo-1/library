@@ -14,6 +14,7 @@ function Book(title, author, numPages, read) {
 
 Book.prototype.changeReadStatus = function() {
     this.read = (this.read === "read") ? "unread" : "read" ;
+    updateLocalStorage();
 };
 
 // check for local storage compatibility. taken from:
