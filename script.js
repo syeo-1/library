@@ -74,7 +74,6 @@ function getNewTableRows(tbody, library) {
         changeStatusButton.textContent = "Change Read Status";
         changeStatusButton.addEventListener("click", function() {
             myLibrary[index].changeReadStatus();
-            removeFromLocalStorage();
             render();
         });
         tdChangeStatus.appendChild(changeStatusButton);
@@ -114,7 +113,7 @@ function createMyLibrary() {
         let title = book.title;
         let author = book.author;
         let pages = book.numPages;
-        let readStatus = book.read;
+        let readStatus = (book.read === "read") ? true : false;
 
         myLibrary.push(new Book(title, author, pages, readStatus));
     }
