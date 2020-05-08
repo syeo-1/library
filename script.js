@@ -146,11 +146,17 @@ function pushBook(book) {
 }
 
 function addBook() {
-    let newBook = createBook();
-    pushBook(newBook);
-    updateLocalStorage();
-    newBookForm.reset();
-    render()
+    if (document.getElementById("title").value !== "" && 
+    document.getElementById("author").value !== "" && 
+    document.getElementById("pages").value !== "") {
+        let newBook = createBook();
+        pushBook(newBook);
+        updateLocalStorage();
+        newBookForm.reset();
+        render()
+    } else {
+        alert("please fill in title, author, and page number fields");
+    }
 }
 
 
