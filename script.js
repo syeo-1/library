@@ -11,11 +11,13 @@ function Book(title, author, numPages, read) {
     this.read = read;
 }
 
+Book.prototype.changeReadStatus = function() {
+    this.read = !this.read;
+};
+
 function removeBook() {
     myLibrary.splice(this.id, 1);
     render();
-    // document.parentElement
-    // console.log(this.id);
 }
 
 function changeStatus() {
@@ -29,13 +31,15 @@ function getNewTableRows(tbody) {
             let td = document.createElement("td");
             td.textContent = value;
             tr.appendChild(td);
-            // console.log(td.textContent);
         }
         //add a button to change read status
         let tdChangeStatus = document.createElement("td")
         let changeStatusButton = document.createElement("button");
         changeStatusButton.textContent = "Change Read Status";
-        changeStatusButton.addEventListener("click", changeStatus);
+        changeStatusButton.addEventListener("click", function() {
+            myLibrary[index].changeReadStatus();
+            render();
+        });
         tdChangeStatus.appendChild(changeStatusButton);
 
         //add a button for remove
@@ -51,7 +55,6 @@ function getNewTableRows(tbody) {
         tr.appendChild(tdChangeStatus);
         tr.appendChild(tdRemoveButton);
         tbody.appendChild(tr);
-        // console.log("------");
     }
 }
 
@@ -87,17 +90,5 @@ function addBook() {
     newBookForm.reset();
     render()
 }
-
-
-
-//manually add books first
-// let book1 = new Book("The Shining", "Stephen King", "650", true);
-// let book2 = new Book("Les Miserables", "Victor Hugo", "500", false);
-// let book3 = new Book("Hunger Games", "Suzanne Collins", "450", true);
-// addBookToLibrary(book1);
-// addBookToLibrary(book2);
-// addBookToLibrary(book3);
-// render();
-
 
 
