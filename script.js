@@ -18,6 +18,10 @@ function removeBook() {
     // console.log(this.id);
 }
 
+function changeStatus() {
+    console.log("words");
+}
+
 function getNewTableRows(tbody) {
     for (let [index, book] of myLibrary.entries()) {
         let tr = document.createElement("tr");
@@ -27,17 +31,25 @@ function getNewTableRows(tbody) {
             tr.appendChild(td);
             // console.log(td.textContent);
         }
+        //add a button to change read status
+        let tdChangeStatus = document.createElement("td")
+        let changeStatusButton = document.createElement("button");
+        changeStatusButton.textContent = "Change Read Status";
+        changeStatusButton.addEventListener("click", changeStatus);
+        tdChangeStatus.appendChild(changeStatusButton);
+
         //add a button for remove
-        let td = document.createElement("td");
+        let tdRemoveButton = document.createElement("td");
         let removeButton = document.createElement("button");
         removeButton.textContent = "Remove";
         removeButton.addEventListener("click", removeBook);
+        tdRemoveButton.appendChild(removeButton);
 
-        //give row identifier for removal
+        //give button identifier for removal
         removeButton.id = (index).toString();
 
-        td.appendChild(removeButton);
-        tr.appendChild(td);
+        tr.appendChild(tdChangeStatus);
+        tr.appendChild(tdRemoveButton);
         tbody.appendChild(tr);
         // console.log("------");
     }
