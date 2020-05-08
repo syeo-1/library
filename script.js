@@ -8,11 +8,12 @@ function Book(title, author, numPages, read) {
     this.title = title;
     this.author = author;
     this.numPages = numPages;
-    this.read = read;
+    this.read = read ? "read" : "unread";
+
 }
 
 Book.prototype.changeReadStatus = function() {
-    this.read = !this.read;
+    this.read = (this.read === "read") ? "unread" : "read" ;
 };
 
 function removeBook() {
