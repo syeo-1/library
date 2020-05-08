@@ -1,6 +1,6 @@
 library project
 
-[View in browser](https://syeo-1.github.io/calculator/)
+[View in browser](https://syeo-1.github.io/library/)
 
 - simple library that keeps track of the books you've read
 
