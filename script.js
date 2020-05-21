@@ -4,18 +4,19 @@ let newBookForm = document.querySelector("#book-data");
 
 addBookButton.addEventListener("click", addBook);
 
-function Book(title, author, numPages, read) {
-    this.title = title;
-    this.author = author;
-    this.numPages = numPages;
-    this.read = read ? "read" : "unread";
+class Book {
+    constructor(title, author, numPages, read) {
+        this.title = title;
+        this.author = author;
+        this.numPages = numPages;
+        this.read = read ? "read" : "unread";
+    }
 
+    changeReadStatus() {
+        this.read = (this.read === "read") ? "unread" : "read";
+        updateLocalStorage();
+    }
 }
-
-Book.prototype.changeReadStatus = function() {
-    this.read = (this.read === "read") ? "unread" : "read" ;
-    updateLocalStorage();
-};
 
 // check for local storage compatibility. taken from:
 // https://developer.mozilla.org/en-US/docs/Web/API/Web_Storage_API/Using_the_Web_Storage_API
