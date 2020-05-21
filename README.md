@@ -8,6 +8,7 @@ things I learned about:
 - how to implement local storage to save data on user's computer
 - creating javascript objects and using prototypes
 - creating forms and using form data to render tables in the DOM
+- learned about using classes vs plain constructors
 
 things to improve on for future projects:
 - continue modularizing code
